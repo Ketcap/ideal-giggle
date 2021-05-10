@@ -1,12 +1,13 @@
 import React from "react";
-import { ThemeProvider } from "styled-components";
+import { DefaultTheme, ThemeProvider } from "styled-components";
 import * as Icon from "react-feather";
 
 import {
   Button as StyledButton,
   ButtonProps as ButtonProperties,
 } from "../src/components/Button";
-import { theme } from "../src/theme/theme";
+import { generateTheme } from "../src/theme/theme";
+import { theme } from "./theme";
 
 export type ButtonProps = Pick<
   ButtonProperties,
@@ -14,9 +15,11 @@ export type ButtonProps = Pick<
 >;
 
 export const Button = (props: ButtonProps) => {
+  const customTheme = generateTheme(theme);
+
   return (
-    <ThemeProvider theme={theme}>
-      {theme.button.size.map((size) => (
+    <ThemeProvider theme={customTheme}>
+      {customTheme.button.size.map((size) => (
         <div
           style={{
             display: "flex",

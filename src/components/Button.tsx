@@ -1,7 +1,6 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { Sizes, Variants } from "styled-components";
 import { transparentize } from "polished";
-import { DefaultTheme } from "../theme/theme";
 import { getConfig } from "../util/getConfig";
 import {
   borderRadius,
@@ -9,12 +8,14 @@ import {
   verticalPadding,
 } from "../util/style";
 
-type ThemeButton = DefaultTheme["button"];
+// type ThemeButton = DefaultTheme['button'];
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: ThemeButton["variant"][number];
-  size: ThemeButton["size"][number];
+  // variant: ThemeButton["variant"][number];
+  // size: ThemeButton["size"][number];
+  variant: Variants[number];
+  size: Sizes[number];
   iconLeft?: React.ReactNode;
   iconRight?: React.ReactNode;
 
@@ -23,30 +24,31 @@ export interface ButtonProps
   children: React.ReactNode;
 }
 
-const ignoredPropsToDom: Array<keyof ButtonProps> = [
-  "fluid",
-  "size",
-  "variant",
-  "iconLeft",
-  "iconRight",
-];
+// const ignoredPropsToDom: Array<keyof ButtonProps> = [
+//   "fluid",
+//   "size",
+//   "variant",
+//   "iconLeft",
+//   "iconRight",
+// ];
 
 const IconWrapper = styled.span<{ size: ButtonProps["size"] }>`
   display: inline-flex;
   :first-child {
     margin-right: ${({ theme, size }) =>
-      getConfig(theme, "button", "iconSpacing", size)}px;
+    getConfig(theme, "button", "iconSpacing", size)}px;
   }
   :last-child {
     margin-left: ${({ theme, size }) =>
-      getConfig(theme, "button", "iconSpacing", size)}px;
+    getConfig(theme, "button", "iconSpacing", size)}px;
   }
   > svg {
     width: ${({ theme, size }) =>
-      getConfig(theme, "button", "fontSize", size)}px;
+    getConfig(theme, "button", "fontSize", size)}px;
     height: ${({ theme, size }) =>
-      getConfig(theme, "button", "fontSize", size)}px;
+    getConfig(theme, "button", "fontSize", size)}px;
   }
+
 `;
 
 export const Button = styled(
@@ -93,20 +95,19 @@ export const Button = styled(
 
   :focus,:hover{
     ${({ theme, variant }) =>
-      `background-color: ${transparentize(
-        0.1,
-        getConfig(theme, "button", "background", variant)
-      )}`}
+    `background-color: ${transparentize(
+      0.1,
+      getConfig(theme, "button", "background", variant)
+    )}`}
   }
 
   :active {
     ${({ theme, variant }) =>
-      `background-color: ${transparentize(
-        0.05,
-        getConfig(theme, "button", "background", variant)
-      )}`}
+    `background-color: ${transparentize(
+      0.05,
+      getConfig(theme, "button", "background", variant)
+    )}`}
   }
 
   user-select: none;
-
 `;

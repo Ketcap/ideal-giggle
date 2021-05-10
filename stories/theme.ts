@@ -1,23 +1,15 @@
-export enum ArrayInputs {
-  type = "type",
-  size = "size",
-}
-export enum ObjectInputs {
-  text = "text",
-  spacing = "spacing",
-  radius = "radius",
-}
+import { NoCodeConfig } from "styled-components";
 
-export const theme = {
+export const theme: NoCodeConfig = {
   color: {
-    primary: "",
-    secondary: "",
-    tertiary: "",
+    primary: "#6E6CC4",
+    secondary: "#333333",
+    tertiary: "#DDDDDD",
+    danger: "#F65849",
   },
-
   button: {
-    variant: ["primary", "secondary", "tertiary", "danger"] as const,
-    size: ["small", "medium", "large"] as const,
+    variant: ["primary", "secondary", "tertiary", "danger"],
+    size: ["small", "medium", "large"],
     fontFamily: "Poppins",
     fontWeight: 400,
     iconSpacing: {
@@ -68,4 +60,21 @@ export const theme = {
   },
 };
 
-export type DefaultTheme = typeof theme;
+
+
+// customColors: {
+//   socialMedia: {
+//     success: "#04C577",
+//     facebook: '#2E61E1',
+//     twitter: "#56C1F7",
+//     instagram: "#C32AA3"
+//   },
+//   buckets: {
+//     racial: '#6202EE',
+//     personal: '#FFC53D',
+//     explicit: '#F65849',
+//     profanity: '#0B1F77',
+//     threat: '#141414',
+//     other: '#707070'
+//   }
+// },

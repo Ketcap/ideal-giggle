@@ -1,4 +1,4 @@
-import { DefaultTheme } from "../theme/theme";
+import { DefaultTheme } from "styled-components";
 
 type ElementKeys = keyof DefaultTheme;
 
@@ -7,7 +7,7 @@ interface GetConfig {
     Theme extends DefaultTheme,
     T extends ElementKeys,
     V extends keyof DefaultTheme[T]
-  >(
+    >(
     theme: Theme,
     elementKey: T,
     configKey: V
@@ -18,7 +18,7 @@ interface GetConfig {
     T extends ElementKeys,
     V extends keyof DefaultTheme[T],
     U extends keyof DefaultTheme[T][V]
-  >(
+    >(
     theme: Theme,
     elementKey: T,
     configKey: V,
@@ -31,7 +31,7 @@ interface GetConfig {
     V extends keyof DefaultTheme[T],
     U extends keyof DefaultTheme[T][V],
     G extends keyof DefaultTheme[T][V][U]
-  >(
+    >(
     theme: Theme,
     elementKey: T,
     configKey: V,
