@@ -1,25 +1,26 @@
 import React from "react";
-import { DefaultTheme, ThemeProvider } from "styled-components";
+import { Sizes, useTheme, Variants } from "styled-components";
 import * as Icon from "react-feather";
 
 import {
   Button as StyledButton,
   ButtonProps as ButtonProperties,
-} from "../src/components/Button";
-import { generateTheme } from "../src/theme/theme";
-import { theme } from "./theme";
+} from "../../src/components/Button";
 
-export type ButtonProps = Pick<
-  ButtonProperties,
-  "children" | "variant" | "onClick"
->;
+export type ButtonProps = {
+  variant: Variants[number];
+  size: Sizes[number];
+  onClick: ButtonProperties['onClick'];
+  children: ButtonProperties['children']
+}
 
-export const Button = (props: ButtonProps) => {
-  const customTheme = generateTheme(theme);
 
-  return (
-    <ThemeProvider theme={customTheme}>
-      {customTheme.button.size.map((size) => (
+export const Button = (props: ButtonProps): JSX.Element => {
+  const theme = useTheme();
+
+  return (<>
+    {
+      theme.button.size.map((size) => (
         <div
           style={{
             display: "flex",
@@ -61,7 +62,7 @@ export const Button = (props: ButtonProps) => {
             {props.children}
           </StyledButton>
         </div>
-      ))}
-    </ThemeProvider>
-  );
+      ))
+    }
+  </>);
 };

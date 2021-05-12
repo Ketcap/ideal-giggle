@@ -1,5 +1,8 @@
+import { Variants, DefaultTheme } from "styled-components";
 import Values from "values.js";
 // https://noeldelgado.github.io/shadowlord/#6e6cc4
+
+import { KeyGenerator } from "./types";
 
 export enum ColorShades {
   A = 100,
@@ -25,12 +28,12 @@ const shadeKeys = (Object.keys(ColorShades).filter((e) => {
   return parseInt(e, 10) >= 0;
 }) as unknown) as ColorShades[];
 
-export const generateColorVariants = <T extends string[]>(
-  colors: ColorsWithName<T>,
-): ColorKeyGenerator<T> => {
-  const generatedVariants = Object.entries(colors).reduce<ColorKeyGenerator<T>>(
+
+export const generateColorVariants = (
+  colors: ColorsWithName<Variants>,
+): ColorKeyGenerator<Variants> & KeyGenerator<Variants, string> => {
+  const generatedVariants = Object.entries(colors).reduce(
     (state, [colorKeyName, value]) => {
-      // no typing on values.js
       const colorValues = new Values(value);
       const tints = colorValues
         .tints()
@@ -50,17 +53,26 @@ export const generateColorVariants = <T extends string[]>(
       const colorTints = shadeKeys.reduce((state, shadeKey, index) => {
         return {
           ...state,
+          [colorKeyName]: mainShade,
           [`${colorKeyName}.${shadeKey}`]: allShadesOfColor[index],
         };
-      }, {});
+      }, {} as ReturnType<typeof generateColorVariants>);
 
       return {
         ...state,
         ...colorTints,
       };
     },
-    {} as ColorKeyGenerator<T>,
+    {} as ReturnType<typeof generateColorVariants>
   );
 
   return generatedVariants;
 };
+
+export const parseColor = (theme: DefaultTheme, value: string): string => {
+  const re = value.includes('.');
+  if (re) {
+    return theme.color[value as keyof typeof theme['color']];
+  }
+  return value;
+}

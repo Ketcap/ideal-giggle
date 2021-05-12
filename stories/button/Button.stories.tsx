@@ -15,5 +15,6 @@ export const Main = Template.bind({});
 
 Main.args = {
   children: "Hello World",
-  variant: "danger",
+  variant: "primary",
+  size: 'medium'
 } as ButtonProps;

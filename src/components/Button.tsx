@@ -7,21 +7,20 @@ import {
   horizontalPadding,
   verticalPadding,
 } from "../util/style";
+import { parseColor } from "../util/color";
 
 // type ThemeButton = DefaultTheme['button'];
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  // variant: ThemeButton["variant"][number];
-  // size: ThemeButton["size"][number];
   variant: Variants[number];
   size: Sizes[number];
+  children: React.ReactNode;
+
+
   iconLeft?: React.ReactNode;
   iconRight?: React.ReactNode;
-
   fluid?: boolean;
-
-  children: React.ReactNode;
 }
 
 // const ignoredPropsToDom: Array<keyof ButtonProps> = [
@@ -77,9 +76,7 @@ export const Button = styled(
     verticalPadding(getConfig(theme, "button", "spacing", "vertical")[size])}
 
   ${({ theme, size }) =>
-    horizontalPadding(
-      getConfig(theme, "button", "spacing", "horizontal")[size]
-    )};
+    horizontalPadding(getConfig(theme, "button", "spacing", "horizontal")[size])};
 
   ${({ theme, size }, radius = getConfig(theme, "button", "radius")) =>
     radius ? borderRadius(radius[size]) : ""}
@@ -87,27 +84,22 @@ export const Button = styled(
   ${({ theme, variant }, border = getConfig(theme, "button", "border")) =>
     variant ? `border: ${border[variant]};` : ""}
 
-  ${({ theme, variant }) =>
-    `color: ${getConfig(theme, "button", "text", variant)};`}
+  ${({ theme, variant }, value = getConfig(theme, "button", "text", variant)) =>
+    `color: ${parseColor(theme, value)};`}
   
-  ${({ theme, variant }) =>
-    `background-color: ${getConfig(theme, "button", "background", variant)};`}
+  ${({ theme, variant }, value = getConfig(theme, "button", "background", variant)) =>
+    `background-color: ${parseColor(theme, value)};`}
 
   :focus,:hover{
-    ${({ theme, variant }) =>
-    `background-color: ${transparentize(
-      0.1,
-      getConfig(theme, "button", "background", variant)
-    )}`}
+    ${({ theme, variant }, value = getConfig(theme, "button", "background", variant)) =>
+    `background-color: ${transparentize(0.1, parseColor(theme, value))}`}
   }
 
   :active {
-    ${({ theme, variant }) =>
-    `background-color: ${transparentize(
-      0.05,
-      getConfig(theme, "button", "background", variant)
-    )}`}
+    ${({ theme, variant }, value = getConfig(theme, "button", "background", variant)) =>
+    `background-color: ${transparentize(0.05, parseColor(theme, value))}`}
   }
 
   user-select: none;
 `;
+

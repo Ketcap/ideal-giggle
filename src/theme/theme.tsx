@@ -1,7 +1,4 @@
-import { DefaultTheme } from "styled-components";
-
-import { ColorKeyGenerator, generateColorVariants } from "../util/color";
-import "../util/color";
+import { ColorKeyGenerator } from "../util/color";
 
 export enum ArrayInputs {
   type = "type",
@@ -43,19 +40,3 @@ export type NoCodeTheme<Variants extends string[], Sizes extends string[]> = Con
 > & {
   color: KeyGenerator<Variants, string> & ColorKeyGenerator<Variants>;
 };
-
-export function generateTheme<
-  T extends Config<string[], string[]>
->(
-  theme: T
-): DefaultTheme {
-  const color = generateColorVariants(theme.color);
-  return {
-    ...theme,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    color: {
-      ...color
-    }
-  }
-}

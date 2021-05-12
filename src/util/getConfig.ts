@@ -1,4 +1,5 @@
 import { DefaultTheme } from "styled-components";
+import { parseColor } from "./color";
 
 type ElementKeys = keyof DefaultTheme;
 
