@@ -1,19 +1,18 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 
-import { Button, ButtonProps } from "./Button";
+import { Button as ButtonComponent, ButtonProps } from "./Button";
 
 export default {
   title: "Example/Button",
-  component: Button,
+  component: ButtonComponent,
   argTypes: { onClick: { action: "clicked" } },
 } as Meta;
 
-const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 
-export const Main = Template.bind({});
+export const Button: Story<ButtonProps> = (args) => <ButtonComponent {...args} />;
 
-Main.args = {
+Button.args = {
   children: "Hello World",
   variant: "primary",
   size: 'medium'
