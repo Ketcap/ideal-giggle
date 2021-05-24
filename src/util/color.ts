@@ -15,6 +15,7 @@ export enum ColorShades {
   H = 800,
   I = 900,
 }
+
 export type ColorKeyGenerator<Colors extends string[]> = {
   [key in `${Colors[number]}.${ColorShades}`]: string;
 };

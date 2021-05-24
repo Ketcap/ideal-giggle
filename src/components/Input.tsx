@@ -12,7 +12,6 @@ export interface InputProps
   inputSize: Sizes[number];
   label: string;
 
-
   fluid?: boolean;
   isDisabled?: boolean;
 
@@ -103,7 +102,7 @@ const LabelNotchWrapper = styled.div<Pick<InputProps, 'inputSize'>>`
   }};
   border-left:0;
   border-right:0;
-  ${({ theme, inputSize }, padding = getConfig(theme, "input", "spacing", 'horizontal')[inputSize]) => `max-width: calc(100% - ${padding}px * 2 + 4px);`};
+  ${({ theme, inputSize }, padding = getConfig(theme, "input", "spacing", 'horizontal')[inputSize]) => `max-width: calc(100% - ${padding}px * 2);`};
 `;
 
 const NotchTrailing = styled.div<Pick<InputProps, 'inputSize'>>`
@@ -111,9 +110,6 @@ const NotchTrailing = styled.div<Pick<InputProps, 'inputSize'>>`
 
   border-color: ${({ theme }) => {
     const { border } = theme.input;
-    if (typeof border === 'string') {
-      return border;
-    }
     return border.Default;
   }};
   border-left:0;
@@ -122,6 +118,7 @@ const NotchTrailing = styled.div<Pick<InputProps, 'inputSize'>>`
   border-top-right-radius: ${({ theme, inputSize }) => getConfig(theme, 'input', 'radius')?.[inputSize]}px;
   border-bottom-right-radius: ${({ theme, inputSize }) => getConfig(theme, 'input', 'radius')?.[inputSize]}px;
 `;
+
 
 const InputBase = styled.input<Omit<InputProps, 'label'> & { hasValue?: boolean }>`
   box-sizing: border-box;
@@ -150,7 +147,7 @@ const InputBase = styled.input<Omit<InputProps, 'label'> & { hasValue?: boolean 
     }
 
     & + div ${Label} {
-    ${LabelFocusCss}
+      ${LabelFocusCss}
     }
   `}
 
