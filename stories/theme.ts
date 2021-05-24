@@ -7,6 +7,40 @@ export const theme: NoCodeConfig = {
     tertiary: "#DDDDDD",
     danger: "#F65849",
   },
+  input: {
+    fontFamily: 'Open Sans',
+    fontWeight: 400,
+    fontSize: 16,
+    minWidth: 200,
+    background: '#fff',
+    border: {
+      size: 1,
+      Default: '#999',
+      Active: '#DDD',
+      Disabled: '#DDD',
+      Error: '#DDD',
+      Success: '#DDD',
+      ReadOnly: '#DDD',
+    },
+    radius: {
+      small: 2,
+      medium: 4,
+      large: 6
+    },
+    iconSpacing: 8,
+    spacing: {
+      horizontal: {
+        small: 16,
+        medium: 16,
+        large: 16,
+      },
+      vertical: {
+        small: 8,
+        medium: 8,
+        large: 8
+      }
+    }
+  },
   button: {
     variant: ["primary", "secondary", "tertiary", "danger"],
     size: ["small", "medium", "large"],
@@ -35,7 +69,7 @@ export const theme: NoCodeConfig = {
       danger: "#FFFFFF",
     },
     border: {
-      primary: "none",
+      primary: "1px solid #DDDDDD",
       secondary: "none",
       tertiary: "1px solid #DDDDDD",
       danger: "none",
