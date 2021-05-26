@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { Input as StyledInput } from '../../src'
+import { Input as StyledInput } from "../../src";
 
 export const Input = (): JSX.Element => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState("");
   return (
-    <StyledInput id='someinput' label='hello' inputSize='medium' value={value} onChange={(e) => setValue(e.currentTarget.value)} />
-  )
-}
+    <StyledInput
+      id="someinput"
+      label="hello"
+      inputSize="medium"
+      value={value}
+      onChange={(e) => setValue(e.currentTarget.value)}
+    />
+  );
+};

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styled, { css, Sizes } from "styled-components";
+import React from "react";
+import styled, { css, DefaultTheme, Sizes } from "styled-components";
 
 import { getConfig } from "../util/getConfig";
 import { horizontalPadding, verticalPadding } from "../util/style";
@@ -127,13 +127,16 @@ const NotchTrailing = styled.div<Pick<InputProps, "inputSize">>`
 `;
 
 const InputBase = styled.input<
-  Omit<InputProps, "label"> & { hasValue?: boolean }
+  Omit<InputProps, "label"> & {
+    hasValue?: boolean;
+    hasSuccess?: boolean;
+    hasError?: boolean;
+  }
 >`
   box-sizing: border-box;
   width: 100%;
   outline: none;
   border-color: transparent;
-
   border-width: ${({ theme }) => getConfig(theme, "input", "border", "size")}px;
   background-color: ${({ theme }) => getConfig(theme, "input", "background")};
 
@@ -155,8 +158,8 @@ const InputBase = styled.input<
     border-top: 0;
   }
 
-  ${(props) =>
-    props.hasValue &&
+  ${({ hasValue }) =>
+    hasValue &&
     `
     & + div ${LabelNotchWrapper} {
       border-top: 0;
@@ -167,23 +170,108 @@ const InputBase = styled.input<
     }
   `}
 
+  ${({ theme, hasError }) =>
+    hasError &&
+    `
+    & + div ${NotchLeading},
+    & + div ${NotchTrailing},
+    & + div ${LabelNotchWrapper} {
+    border-color: ${theme.color["danger.500"]};
+    } 
+  `}
+
+  ${({ hasSuccess }) =>
+    hasSuccess &&
+    `
+    & + div ${NotchLeading},
+    & + div ${NotchTrailing},
+    & + div ${LabelNotchWrapper} {
+    border-color: #04C577;
+    } 
+  `}
+
+
   &,
   & + div ${Label} {
     font-size: ${({ theme }) => getConfig(theme, "input", "fontSize")}px;
     font-family: ${({ theme }) => getConfig(theme, "input", "fontFamily")};
     font-weight: ${({ theme }) => getConfig(theme, "input", "fontWeight")};
   }
+
+  &:hover
+    + div
+    ${NotchLeading},
+    &:hover
+    + div
+    ${NotchTrailing},
+    &:hover
+    + div
+    ${LabelNotchWrapper} {
+    border-color: ${({ theme }) =>
+      getConfig(theme, "input", "border", "Hover")};
+  }
+
+  &:active
+    + div
+    ${NotchLeading},
+    &:active
+    + div
+    ${NotchTrailing},
+    &:active
+    + div
+    ${LabelNotchWrapper} {
+    border-color: ${({ theme }) =>
+      getConfig(theme, "input", "border", "Active")};
+  }
+
+  &:focus
+    + div
+    ${NotchLeading},
+    &:focus
+    + div
+    ${NotchTrailing},
+    &:focus
+    + div
+    ${LabelNotchWrapper} {
+    border-color: ${({ theme }) =>
+      getConfig(theme, "input", "border", "Focused")};
+  }
+
+  &:disabled
+    + div
+    ${NotchLeading},
+    &:disabled
+    + div
+    ${NotchTrailing},
+    &:disabled
+    + div
+    ${LabelNotchWrapper} {
+    background-color: #fcfcfc;
+    border-color: ${({ theme }) =>
+      getConfig(theme, "input", "border", "Disabled")};
+  }
 `;
 
-export const Input = ({ fluid, id, label, value, ...props }: InputProps) => (
-  <InputWrapper fluid={fluid}>
-    <InputBase {...props} id={id} value={value} hasValue={!!value} />
-    <NotchWrapper>
-      <NotchLeading inputSize={props.inputSize} />
-      <LabelNotchWrapper inputSize={props.inputSize}>
-        <Label htmlFor={id}>{label}</Label>
-      </LabelNotchWrapper>
-      <NotchTrailing inputSize={props.inputSize} />
-    </NotchWrapper>
-  </InputWrapper>
-);
+// todo: handle placeholder - currently label works as a placeholder of sorts, can we use it as a placeholder all the time? would it be semantically correct?
+
+export const Input = ({ fluid, id, label, value, ...props }: InputProps) => {
+  return (
+    <InputWrapper fluid={fluid}>
+      <InputBase
+        {...props}
+        id={id}
+        value={value}
+        hasValue={!!value}
+        hasSuccess={!!props.success}
+        hasError={!!props.error}
+      />
+      <NotchWrapper>
+        <NotchLeading inputSize={props.inputSize} />
+        <LabelNotchWrapper inputSize={props.inputSize}>
+          <Label htmlFor={id}>{label}</Label>
+        </LabelNotchWrapper>
+        <NotchTrailing inputSize={props.inputSize} />
+      </NotchWrapper>
+    </InputWrapper>
+  );
+};

@@ -8,24 +8,26 @@ export const theme: NoCodeConfig = {
     danger: "#F65849",
   },
   input: {
-    fontFamily: 'Open Sans',
+    fontFamily: "Open Sans",
     fontWeight: 400,
     fontSize: 16,
     minWidth: 200,
-    background: '#fff',
+    background: "#fff",
     border: {
       size: 1,
-      Default: '#999',
-      Active: '#DDD',
-      Disabled: '#DDD',
-      Error: '#DDD',
-      Success: '#DDD',
-      ReadOnly: '#DDD',
+      Default: "#999",
+      Active: "#6E6CC4",
+      Focused: "#6E6CC4",
+      Disabled: "#DDD",
+      Error: "#F65849",
+      Success: "#04C577",
+      ReadOnly: "#DDD",
+      Hover: "#6E6CC4",
     },
     radius: {
       small: 2,
       medium: 4,
-      large: 6
+      large: 6,
     },
     iconSpacing: 8,
     spacing: {
@@ -37,9 +39,9 @@ export const theme: NoCodeConfig = {
       vertical: {
         small: 8,
         medium: 8,
-        large: 8
-      }
-    }
+        large: 8,
+      },
+    },
   },
   button: {
     variant: ["primary", "secondary", "tertiary", "danger"],
@@ -93,8 +95,6 @@ export const theme: NoCodeConfig = {
     },
   },
 };
-
-
 
 // customColors: {
 //   socialMedia: {
