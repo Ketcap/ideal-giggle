@@ -6,6 +6,7 @@ export const theme: NoCodeConfig = {
     secondary: "#333333",
     tertiary: "#DDDDDD",
     danger: "#F65849",
+    success: "#04C577",
   },
   input: {
     fontFamily: "Open Sans",
@@ -15,7 +16,7 @@ export const theme: NoCodeConfig = {
     background: "#fff",
     border: {
       size: 1,
-      Default: "#999",
+      Default: "#DDD",
       Active: "#6E6CC4",
       Focused: "#6E6CC4",
       Disabled: "#DDD",
@@ -32,9 +33,9 @@ export const theme: NoCodeConfig = {
     iconSpacing: 8,
     spacing: {
       horizontal: {
-        small: 16,
+        small: 8,
         medium: 16,
-        large: 16,
+        large: 24,
       },
       vertical: {
         small: 8,
@@ -44,7 +45,7 @@ export const theme: NoCodeConfig = {
     },
   },
   button: {
-    variant: ["primary", "secondary", "tertiary", "danger"],
+    variant: ["primary", "secondary", "tertiary", "danger", "success"],
     size: ["small", "medium", "large"],
     fontFamily: "Poppins",
     fontWeight: 400,
@@ -63,18 +64,21 @@ export const theme: NoCodeConfig = {
       secondary: "#333333",
       tertiary: "#FFFFFF",
       danger: "#F65849",
+      success: "#04C577",
     },
     text: {
       primary: "#FFFFFF",
       secondary: "#FFFFFF",
       tertiary: "#333333",
       danger: "#FFFFFF",
+      success: "#FFFFFF",
     },
     border: {
       primary: "1px solid #DDDDDD",
       secondary: "none",
       tertiary: "1px solid #DDDDDD",
       danger: "none",
+      success: "none",
     },
     spacing: {
       vertical: {

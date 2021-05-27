@@ -10,10 +10,8 @@ export interface InputProps
   value: React.InputHTMLAttributes<HTMLInputElement>["value"];
   inputSize: Sizes[number];
   label: string;
-
   fluid?: boolean;
   isDisabled?: boolean;
-
   success?: InputSuccess;
   error?: InputError;
 }
@@ -30,13 +28,12 @@ const LabelFocusCss = css`
   transform: scale(0.75) translateY(-175%);
 `;
 
-const Label = styled.label<{ hasValue?: boolean }>`
+const Label = styled.label`
   display: inline-block;
   position: relative;
-
+  color: ${({ theme }) => getConfig(theme, "color", "secondary.100")};
   top: 50%;
   transform: translateY(-50%);
-
   pointer-events: none;
   transform-origin: left top;
   transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -45,7 +42,6 @@ const Label = styled.label<{ hasValue?: boolean }>`
 const InputWrapper = styled.div<Pick<InputProps, "fluid">>`
   position: relative;
   min-width: ${({ theme }) => getConfig(theme, "input", "minWidth") ?? 200}px;
-
   width: ${({ fluid }) => fluid && "100%"};
 `;
 
@@ -82,7 +78,6 @@ const NotchLeading = styled.div<Pick<InputProps, "inputSize">>`
     }
     return border.Default;
   }};
-
   border-right: 0;
   border-top-left-radius: ${({ theme, inputSize }) =>
     getConfig(theme, "input", "radius")?.[inputSize]}px;
@@ -149,23 +144,23 @@ const InputBase = styled.input<
     spacing = getConfig(theme, "input", "spacing", "horizontal")[inputSize]
   ) => horizontalPadding(spacing)}
 
-  &:focus + div ${Label},
-  &:placeholder-shown + div ${Label} {
-    ${LabelFocusCss}
+  &,
+  & + div ${Label} {
+    font-size: ${({ theme }) => getConfig(theme, "input", "fontSize")}px;
+    font-family: ${({ theme }) => getConfig(theme, "input", "fontFamily")};
+    font-weight: ${({ theme }) => getConfig(theme, "input", "fontWeight")};
   }
 
-  &:focus + div ${LabelNotchWrapper} {
-    border-top: 0;
-  }
-
-  ${({ hasValue }) =>
+  ${({ theme, hasValue }) =>
     hasValue &&
     `
+    color: ${theme.color["secondary.400"]};
     & + div ${LabelNotchWrapper} {
       border-top: 0;
     }
 
     & + div ${Label} {
+      color: ${theme.color["secondary.400"]};
       ${LabelFocusCss}
     }
   `}
@@ -177,101 +172,124 @@ const InputBase = styled.input<
     & + div ${NotchTrailing},
     & + div ${LabelNotchWrapper} {
     border-color: ${theme.color["danger.500"]};
-    } 
+    }
+    
+    & + div ${Label} {
+      color: ${theme.color["danger.500"]};
+    }
   `}
 
-  ${({ hasSuccess }) =>
+  ${({ theme, hasSuccess }) =>
     hasSuccess &&
     `
     & + div ${NotchLeading},
     & + div ${NotchTrailing},
     & + div ${LabelNotchWrapper} {
-    border-color: #04C577;
+    border-color:${getConfig(theme, "input", "border", "Success")};
     } 
+
+    & + div ${Label} {
+      color: ${theme.color["success.500"]};
+    }
   `}
 
 
-  &,
-  & + div ${Label} {
-    font-size: ${({ theme }) => getConfig(theme, "input", "fontSize")}px;
-    font-family: ${({ theme }) => getConfig(theme, "input", "fontFamily")};
-    font-weight: ${({ theme }) => getConfig(theme, "input", "fontWeight")};
+
+  &:hover {
+    + div ${NotchLeading},+ div ${NotchTrailing}, + div ${LabelNotchWrapper} {
+      border-color: ${({ theme }) =>
+        getConfig(theme, "input", "border", "Hover")};
+    }
   }
 
-  &:hover
-    + div
-    ${NotchLeading},
-    &:hover
-    + div
-    ${NotchTrailing},
-    &:hover
-    + div
-    ${LabelNotchWrapper} {
-    border-color: ${({ theme }) =>
-      getConfig(theme, "input", "border", "Hover")};
+  &:active {
+    + div ${NotchLeading},+ div ${NotchTrailing}, + div ${LabelNotchWrapper} {
+      border-color: ${({ theme }) =>
+        getConfig(theme, "input", "border", "Active")};
+    }
   }
 
-  &:active
-    + div
-    ${NotchLeading},
-    &:active
-    + div
-    ${NotchTrailing},
-    &:active
-    + div
-    ${LabelNotchWrapper} {
-    border-color: ${({ theme }) =>
-      getConfig(theme, "input", "border", "Active")};
+  &:focus {
+    + div ${NotchLeading},+ div ${NotchTrailing}, + div ${LabelNotchWrapper} {
+      border-color: ${({ theme }) =>
+        getConfig(theme, "input", "border", "Focused")};
+    }
+
+    + div ${Label} {
+      color: ${({ theme }) => getConfig(theme, "color", "secondary.400")};
+    }
+
+    + div ${LabelNotchWrapper} {
+      border-top: 0;
+    }
+
+    + div ${Label}, :placeholder-shown + div ${Label} {
+      ${LabelFocusCss}
+    }
   }
 
-  &:focus
-    + div
-    ${NotchLeading},
-    &:focus
-    + div
-    ${NotchTrailing},
-    &:focus
-    + div
-    ${LabelNotchWrapper} {
-    border-color: ${({ theme }) =>
-      getConfig(theme, "input", "border", "Focused")};
-  }
-
-  &:disabled
-    + div
-    ${NotchLeading},
-    &:disabled
-    + div
-    ${NotchTrailing},
-    &:disabled
-    + div
-    ${LabelNotchWrapper} {
-    background-color: #fcfcfc;
-    border-color: ${({ theme }) =>
-      getConfig(theme, "input", "border", "Disabled")};
+  &:disabled {
+    + div ${NotchLeading}, + div ${NotchTrailing}, + div ${LabelNotchWrapper} {
+      background-color: ${({ theme }) =>
+        // TODO: adjust this color - not accurate currently, we need to adjust color palette
+        getConfig(theme, "color", "tertiary.100")};
+      border-color: ${({ theme }) =>
+        getConfig(theme, "input", "border", "Disabled")};
+    }
+    + div ${Label} {
+      color: ${({ theme }) => getConfig(theme, "color", "tertiary")};
+    }
+    cursor: not-allowed;
   }
 `;
 
-// todo: handle placeholder - currently label works as a placeholder of sorts, can we use it as a placeholder all the time? would it be semantically correct?
+export const MessageWrap = styled.p<{
+  hasError?: boolean;
+  hasSuccess?: boolean;
+}>`
+  color: ${({ theme, hasError, hasSuccess }) =>
+    getConfig(
+      theme,
+      "color",
+      hasError ? "danger" : hasSuccess ? "success" : "secondary.400"
+    )};
+  font-family: ${({ theme }) => getConfig(theme, "input", "fontFamily")};
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.01em;
+  margin: 2px 0;
+`;
 
 export const Input = ({ fluid, id, label, value, ...props }: InputProps) => {
   return (
-    <InputWrapper fluid={fluid}>
-      <InputBase
-        {...props}
-        id={id}
-        value={value}
-        hasValue={!!value}
-        hasSuccess={!!props.success}
-        hasError={!!props.error}
-      />
-      <NotchWrapper>
-        <NotchLeading inputSize={props.inputSize} />
-        <LabelNotchWrapper inputSize={props.inputSize}>
-          <Label htmlFor={id}>{label}</Label>
-        </LabelNotchWrapper>
-        <NotchTrailing inputSize={props.inputSize} />
-      </NotchWrapper>
-    </InputWrapper>
+    <div>
+      <InputWrapper fluid={fluid}>
+        <InputBase
+          {...props}
+          id={id}
+          value={value}
+          hasValue={!!value}
+          hasSuccess={!!props.success}
+          hasError={!!props.error}
+        />
+        <NotchWrapper>
+          <NotchLeading inputSize={props.inputSize} />
+          <LabelNotchWrapper inputSize={props.inputSize}>
+            <Label htmlFor={id}>{label}</Label>
+          </LabelNotchWrapper>
+          <NotchTrailing inputSize={props.inputSize} />
+        </NotchWrapper>
+      </InputWrapper>
+      {props.error?.message && (
+        <MessageWrap hasError={!!props.error}>
+          {props.error.message}
+        </MessageWrap>
+      )}
+      {props.success?.message && (
+        <MessageWrap hasSuccess={!!props.success}>
+          {props.success.message}
+        </MessageWrap>
+      )}
+    </div>
   );
 };

@@ -8,7 +8,6 @@ export default {
   component: InputComponent,
 } as Meta;
 
-
-export const Input: Story = (args) => <InputComponent />;
+export const Input: Story = (args) => <InputComponent {...args} />;
 
 Input.args = {};

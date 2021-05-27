@@ -3,7 +3,13 @@ import "styled-components";
 import { Config, NoCodeTheme } from "../src/theme/theme";
 // and extend them!
 declare module "styled-components" {
-  export type Variants = ["primary", "secondary", "tertiary", "danger"];
+  export type Variants = [
+    "primary",
+    "secondary",
+    "tertiary",
+    "danger",
+    "success"
+  ];
   export type Sizes = ["small", "medium", "large"];
 
   export type NoCodeConfig = Config<Variants, Sizes>;
