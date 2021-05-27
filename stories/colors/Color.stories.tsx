@@ -1,16 +1,15 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 
-import { Color } from "./Color";
+import { Color as ColorComponent } from "./Color";
 
 export default {
-  title: "Color Palette",
-  component: Color,
+  title: "System/Color Palette",
+  component: ColorComponent,
 } as Meta;
 
-const Template: Story = (args) => <Color />;
 
-export const Main = Template.bind({});
+export const ColorPalette: Story = (args) => <ColorComponent />;
 
-Main.args = {
+ColorPalette.args = {
 };

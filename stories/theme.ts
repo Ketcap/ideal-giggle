@@ -6,9 +6,46 @@ export const theme: NoCodeConfig = {
     secondary: "#333333",
     tertiary: "#DDDDDD",
     danger: "#F65849",
+    success: "#04C577",
+  },
+  input: {
+    fontFamily: "Open Sans",
+    fontWeight: 400,
+    fontSize: 16,
+    minWidth: 200,
+    background: "#fff",
+    border: {
+      size: 1,
+      Default: "#DDD",
+      Active: "#6E6CC4",
+      Focused: "#6E6CC4",
+      Disabled: "#DDD",
+      Error: "#F65849",
+      Success: "#04C577",
+      ReadOnly: "#DDD",
+      Hover: "#6E6CC4",
+    },
+    radius: {
+      small: 2,
+      medium: 4,
+      large: 6,
+    },
+    iconSpacing: 8,
+    spacing: {
+      horizontal: {
+        small: 8,
+        medium: 16,
+        large: 24,
+      },
+      vertical: {
+        small: 8,
+        medium: 8,
+        large: 8,
+      },
+    },
   },
   button: {
-    variant: ["primary", "secondary", "tertiary", "danger"],
+    variant: ["primary", "secondary", "tertiary", "danger", "success"],
     size: ["small", "medium", "large"],
     fontFamily: "Poppins",
     fontWeight: 400,
@@ -27,18 +64,21 @@ export const theme: NoCodeConfig = {
       secondary: "#333333",
       tertiary: "#FFFFFF",
       danger: "#F65849",
+      success: "#04C577",
     },
     text: {
       primary: "#FFFFFF",
       secondary: "#FFFFFF",
       tertiary: "#333333",
       danger: "#FFFFFF",
+      success: "#FFFFFF",
     },
     border: {
-      primary: "none",
+      primary: "1px solid #DDDDDD",
       secondary: "none",
       tertiary: "1px solid #DDDDDD",
       danger: "none",
+      success: "none",
     },
     spacing: {
       vertical: {
@@ -59,8 +99,6 @@ export const theme: NoCodeConfig = {
     },
   },
 };
-
-
 
 // customColors: {
 //   socialMedia: {
